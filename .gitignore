@@ -11,3 +11,5 @@ result-*
 .vscode/
 
 *.snap
+
+**/*.sublime-workspace
