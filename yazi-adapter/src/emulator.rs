@@ -84,7 +84,7 @@ impl Emulator {
 
 		// I really don't want to add this,
 		// But tmux and ConPTY sometimes cause the cursor position to get out of sync.
-		if *TMUX || cfg!(windows) {
+		if (false && *TMUX) || cfg!(windows) {
 			execute!(buf, SavePosition, MoveTo(x, y), Show)?;
 			execute!(buf, MoveTo(x, y), Show)?;
 			execute!(buf, MoveTo(x, y), Show)?;
@@ -94,7 +94,7 @@ impl Emulator {
 		}
 
 		let result = cb(&mut buf);
-		if *TMUX || cfg!(windows) {
+		if (false && *TMUX) || cfg!(windows) {
 			queue!(buf, Hide, RestorePosition)?;
 		} else {
 			queue!(buf, RestorePosition)?;

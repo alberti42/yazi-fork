@@ -143,32 +143,35 @@ impl Term {
 
 	#[inline]
 	pub(super) fn set_cursor_block() -> Result<()> {
-		use crossterm::cursor::SetCursorStyle;
-		Ok(if INPUT.cursor_blink {
-			queue!(stderr(), SetCursorStyle::BlinkingBlock)?
-		} else {
-			queue!(stderr(), SetCursorStyle::SteadyBlock)?
-		})
+		// use crossterm::cursor::SetCursorStyle;
+		// Ok(if INPUT.cursor_blink {
+		// 	queue!(stderr(), SetCursorStyle::BlinkingBlock)?
+		// } else {
+		// 	queue!(stderr(), SetCursorStyle::SteadyBlock)?
+		// })
+		Ok(())
 	}
 
 	#[inline]
 	pub(super) fn set_cursor_bar() -> Result<()> {
-		use crossterm::cursor::SetCursorStyle;
-		Ok(if INPUT.cursor_blink {
-			queue!(stderr(), SetCursorStyle::BlinkingBar)?
-		} else {
-			queue!(stderr(), SetCursorStyle::SteadyBar)?
-		})
+		// use crossterm::cursor::SetCursorStyle;
+		// Ok(if INPUT.cursor_blink {
+		// 	queue!(stderr(), SetCursorStyle::BlinkingBar)?
+		// } else {
+		// 	queue!(stderr(), SetCursorStyle::SteadyBar)?
+		// })
+		Ok(())
 	}
 
 	#[inline]
 	pub(super) fn set_cursor_underscore() -> Result<()> {
-		use crossterm::cursor::SetCursorStyle;
-		Ok(if INPUT.cursor_blink {
-			queue!(stderr(), SetCursorStyle::BlinkingUnderScore)?
-		} else {
-			queue!(stderr(), SetCursorStyle::SteadyUnderScore)?
-		})
+		// use crossterm::cursor::SetCursorStyle;
+		// Ok(if INPUT.cursor_blink {
+		// 	queue!(stderr(), SetCursorStyle::BlinkingUnderScore)?
+		// } else {
+		// 	queue!(stderr(), SetCursorStyle::SteadyUnderScore)?
+		// })
+		Ok(())
 	}
 }
 
@@ -230,7 +233,7 @@ mod mouse {
 mod cursor {
 	use std::sync::atomic::Ordering;
 
-	use crossterm::cursor::SetCursorStyle;
+	// use crossterm::cursor::e;
 
 	use super::{BLINK, SHAPE};
 
@@ -244,15 +247,16 @@ mod cursor {
 			};
 
 			let blink = BLINK.load(Ordering::Relaxed) ^ shape_blink;
-			Ok(match shape {
-				2 if blink => SetCursorStyle::BlinkingUnderScore.write_ansi(f)?,
-				2 if !blink => SetCursorStyle::SteadyUnderScore.write_ansi(f)?,
-				3 if blink => SetCursorStyle::BlinkingBar.write_ansi(f)?,
-				3 if !blink => SetCursorStyle::SteadyBar.write_ansi(f)?,
-				_ if blink => SetCursorStyle::DefaultUserShape.write_ansi(f)?,
-				_ if !blink => SetCursorStyle::SteadyBlock.write_ansi(f)?,
-				_ => unreachable!(),
-			})
+			// Ok(match shape {
+			// 	2 if blink => SetCursorStyle::BlinkingUnderScore.write_ansi(f)?,
+			// 	2 if !blink => SetCursorStyle::SteadyUnderScore.write_ansi(f)?,
+			// 	3 if blink => SetCursorStyle::BlinkingBar.write_ansi(f)?,
+			// 	3 if !blink => SetCursorStyle::SteadyBar.write_ansi(f)?,
+			// 	_ if blink => SetCursorStyle::DefaultUserShape.write_ansi(f)?,
+			// 	_ if !blink => SetCursorStyle::SteadyBlock.write_ansi(f)?,
+			// 	_ => unreachable!(),
+			// })
+			Ok(())
 		}
 
 		#[cfg(windows)]

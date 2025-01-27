@@ -26,26 +26,26 @@ impl Mux {
 			return false;
 		}
 
-		let child = std::process::Command::new("tmux")
-			.args(["set", "-p", "allow-passthrough", "on"])
-			.stdin(std::process::Stdio::null())
-			.stdout(std::process::Stdio::null())
-			.stderr(std::process::Stdio::piped())
-			.spawn();
+		// let child = std::process::Command::new("tmux")
+		// 	.args(["set", "-p", "allow-passthrough", "on"])
+		// 	.stdin(std::process::Stdio::null())
+		// 	.stdout(std::process::Stdio::null())
+		// 	.stderr(std::process::Stdio::piped())
+		// 	.spawn();
 
-		match child.and_then(|c| c.wait_with_output()) {
-			Ok(o) if o.status.success() => {}
-			Ok(o) => {
-				error!(
-					"Running `tmux set -p allow-passthrough on` failed: {:?}, {}",
-					o.status,
-					String::from_utf8_lossy(&o.stderr)
-				);
-			}
-			Err(e) => {
-				error!("Failed to spawn `tmux set -p allow-passthrough on`: {e}");
-			}
-		}
+		// match child.and_then(|c| c.wait_with_output()) {
+		// 	Ok(o) if o.status.success() => {}
+		// 	Ok(o) => {
+		// 		error!(
+		// 			"Running `tmux set -p allow-passthrough on` failed: {:?}, {}",
+		// 			o.status,
+		// 			String::from_utf8_lossy(&o.stderr)
+		// 		);
+		// 	}
+		// 	Err(e) => {
+		// 		error!("Failed to spawn `tmux set -p allow-passthrough on`: {e}");
+		// 	}
+		// }
 		true
 	}
 
