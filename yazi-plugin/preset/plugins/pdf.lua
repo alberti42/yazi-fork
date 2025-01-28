@@ -36,10 +36,10 @@ function M:preload(job)
 			"-jpeg",
 			"-jpegopt",
 			"quality=" .. PREVIEW.image_quality,
+      "-r", -- Resolution
+      "150", -- Set the DPI (default 150)
 			"-f",
-			job.skip + 1,
-			"-r", -- Resolution
-			"300", -- Set the DPI
+			job.skip + 1, -- First page to print
 			tostring(job.file.url),
 		})
 		:stdout(Command.PIPED)
