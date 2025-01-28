@@ -38,6 +38,8 @@ function M:preload(job)
 			"quality=" .. PREVIEW.image_quality,
 			"-f",
 			job.skip + 1,
+			"-r", -- Resolution
+			"300", -- Set the DPI
 			tostring(job.file.url),
 		})
 		:stdout(Command.PIPED)
