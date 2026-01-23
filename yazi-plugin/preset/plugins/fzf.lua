@@ -13,19 +13,24 @@ function M:entry(job)
 
 	local cwd, selected = state()
 	if cwd.scheme.is_virtual then
-		return ya.notify { title = "Fzf", content = "Not supported under virtual filesystems", timeout = 5, level = "warn" }
+		return ya.notify({
+			title = "Fzf",
+			content = "Not supported under virtual filesystems",
+			timeout = 5,
+			level = "warn",
+		})
 	end
 
 	local default_cmd = M.parse_args(job and job.args or {})
 	if default_cmd == "" then
-		return ya.notify { title = "Fzf", content = "Missing string after --fzf-command", timeout = 5, level = "error" }
+		return ya.notify({ title = "Fzf", content = "Missing string after --fzf-command", timeout = 5, level = "error" })
 	end
 	local permit = ui.hide()
 	local output, err = M.run_with(cwd, selected, default_cmd)
 
 	permit:drop()
 	if not output then
-		return ya.notify { title = "Fzf", content = tostring(err), timeout = 5, level = "error" }
+		return ya.notify({ title = "Fzf", content = tostring(err), timeout = 5, level = "error" })
 	end
 
 	local urls = M.split_urls(cwd, output)
@@ -56,11 +61,8 @@ function M.run_with(cwd, selected, default_cmd)
 	if default_cmd and #selected == 0 then
 		cmd:env("FZF_DEFAULT_COMMAND", default_cmd)
 	end
-	local child, err = cmd
-		:cwd(tostring(cwd))
-		:stdin(input and Command.PIPED or Command.INHERIT)
-		:stdout(Command.PIPED)
-		:spawn()
+	local child, err =
+		cmd:cwd(tostring(cwd)):stdin(input and Command.PIPED or Command.INHERIT):stdout(Command.PIPED):spawn()
 
 	if not child then
 		return nil, Err("Failed to start `fzf`, error: %s", err)
